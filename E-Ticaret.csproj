@@ -5,4 +5,8 @@
     <RootNamespace>E_Ticaret</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Contexts\" />
+  </ItemGroup>
+
 </Project>
