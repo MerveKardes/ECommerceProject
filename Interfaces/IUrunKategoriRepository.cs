@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace E_Ticaret.Interfaces
 {
-   public interface IUrunRepository: IGenericRepository<Urun>
+    public interface IUrunKategoriRepository:IGenericRepository<UrunKategori>
     {
-
     }
 }

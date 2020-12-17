@@ -6,27 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using E_Ticaret.Models;
+using E_Ticaret.Interfaces;
 
 namespace E_Ticaret.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        IUrunRepository _urunRepository;
+        public HomeController(IUrunRepository urunRepository)
         {
-            _logger = logger;
+            _urunRepository = urunRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(_urunRepository.GetirHepsi());
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+      
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

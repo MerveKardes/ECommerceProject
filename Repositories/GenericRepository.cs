@@ -32,7 +32,7 @@ namespace E_Ticaret.Repositories
         public List<Tablo> GetirHepsi()
         {
             using var context = new Context();
-            return context.Set<Tablo>().OrderByDescending(I=>I.Id).ToList();
+            return context.Set<Tablo>().ToList();
         }
         public Tablo GetirIdile(int id)
         {
