@@ -8,6 +8,6 @@ namespace E_Ticaret.Interfaces
 {
    public interface IUrunRepository: IGenericRepository<Urun>
     {
-
+        List<Kategori> GetirKategoriler(int urunId);
     }
 }
