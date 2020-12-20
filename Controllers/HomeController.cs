@@ -20,6 +20,7 @@ namespace E_Ticaret.Controllers
 
         public IActionResult Index()
         {
+           
             return View(_urunRepository.GetirHepsi());
         }
 
@@ -28,10 +29,17 @@ namespace E_Ticaret.Controllers
             return View(_urunRepository.GetirIdile(id));
         }
 
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
+        //public void SetSession(string key, string value)
         //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        
+        //    HttpContext.Session.Set
+        //}
+
+        //public string GetSession(string key)
+        //{
+        //    HttpContext.Request.Cookies.TryGetValue(key, out string value);
+        //    return value;
+
         //}
     }
 }
