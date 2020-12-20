@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using E_Ticaret.Contexts;
+using E_Ticaret.Entities;
 using E_Ticaret.Interfaces;
 using E_Ticaret.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +28,8 @@ namespace E_Ticaret
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Context>();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<Context>();
             services.AddScoped<IKategoriRepository, KategoriRepository>();
             services.AddScoped<IUrunRepository, UrunRepository>();
             services.AddScoped<IUrunKategoriRepository, UrunKategoriRepository>();

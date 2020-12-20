@@ -1,4 +1,5 @@
 ﻿using E_Ticaret.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace E_Ticaret.Contexts
 {
-    public class Context: DbContext
+    public class Context: IdentityDbContext<AppUser>
 
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("server=.; database=ETicaret; Integrated Security=True;");
+            base.OnConfiguring(optionsBuilder);
 
         }
 
@@ -26,6 +28,7 @@ namespace E_Ticaret.Contexts
                 I.KategoriId,
                 I.UrunId
             }).IsUnique();
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<UrunKategori> UrunKategoriler { get; set; }

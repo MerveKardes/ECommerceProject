@@ -12,7 +12,7 @@ namespace E_Ticaret.Controllers
 {
     public class HomeController : Controller
     {
-        IUrunRepository _urunRepository;
+      private readonly  IUrunRepository _urunRepository;
         public HomeController(IUrunRepository urunRepository)
         {
             _urunRepository = urunRepository;
