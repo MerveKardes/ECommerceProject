@@ -29,6 +29,15 @@ namespace E_Ticaret.Controllers
             return View(_urunRepository.GetirIdile(id));
         }
 
-  
+           public IActionResult GirisYap()
+            {
+            return View(new KullaniciGirisModel());
+            }
+
+        [HttpPost]
+        public IActionResult GirisYap(KullaniciGirisModel model)
+        {
+            return View(new KullaniciGirisModel());
+        }
     }
 }
