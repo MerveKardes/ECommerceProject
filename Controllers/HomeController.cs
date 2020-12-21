@@ -29,17 +29,6 @@ namespace E_Ticaret.Controllers
             return View(_urunRepository.GetirIdile(id));
         }
 
-        //public void SetSession(string key, string value)
-        //{
-        
-        //    HttpContext.Session.Set
-        //}
-
-        //public string GetSession(string key)
-        //{
-        //    HttpContext.Request.Cookies.TryGetValue(key, out string value);
-        //    return value;
-
-        //}
+  
     }
 }
