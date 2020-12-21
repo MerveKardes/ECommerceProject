@@ -8,6 +8,7 @@ using E_Ticaret.Interfaces;
 using E_Ticaret.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,10 @@ namespace E_Ticaret
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Context>();
+
+            services.AddAuthentication();
+
+
             services.AddIdentity<AppUser, IdentityRole>(opt=>
             {
                 opt.Password.RequireDigit = false;
@@ -38,6 +43,19 @@ namespace E_Ticaret
                 opt.Password.RequireNonAlphanumeric = false;
                 
             }).AddEntityFrameworkStores<Context>();
+
+            services.ConfigureApplicationCookie(opt =>
+            {
+                opt.LoginPath = new PathString("/Home/GirisYap");
+                opt.Cookie.Name = "E-Ticaret";
+                opt.Cookie.HttpOnly = true;
+                opt.Cookie.SameSite = SameSiteMode.Strict;
+                opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+
+            });
+
+
+
             services.AddScoped<IKategoriRepository, KategoriRepository>();
             services.AddScoped<IUrunRepository, UrunRepository>();
             services.AddScoped<IUrunKategoriRepository, UrunKategoriRepository>();
@@ -67,7 +85,8 @@ namespace E_Ticaret
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();//ilgili kullanýcý giriþ yapmýþ mý yapmamýl mý
+            app.UseAuthorization();//giriþ yapan kullanýcýnýn yetkisi ilgili þartlarý karþýlýyor mu(admin mi girmiþ member mi girmiþ) 
 
             app.UseEndpoints(endpoints =>
             {
