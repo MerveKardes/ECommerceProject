@@ -1,14 +1,21 @@
-﻿<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <title>Admin Panel</title>
-    <meta http-equiv="content-type" content="text/html"charset="utf-8" />
-</head>
+﻿@model List<Urun>
 
-<body>
-    <h1>burası admin panel</h1>
 
-    
-</body>
+<table class="table table-sm table-bordered table-hover mt-2">
+    <tr>
+       <th>Id</th>
+       <th>Resim</th>
+       <th>Ad</th>
+       <th>Fiyat</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td></td>
+            <td>@item.Ad</td>
+            <td>@item.Fiyat</td>
+        </tr>
 
-</html>
+    }
+</table>
