@@ -7,14 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using E_Ticaret.Models;
 using E_Ticaret.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using E_Ticaret.Entities;
 
 namespace E_Ticaret.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly SignInManager<AppUser> _signInManager;
       private readonly  IUrunRepository _urunRepository;
-        public HomeController(IUrunRepository urunRepository)
+        public HomeController(IUrunRepository urunRepository, SignInManager<AppUser> signInManager)
         {
+            _signInManager = signInManager;
             _urunRepository = urunRepository;
         }
 
@@ -39,7 +43,12 @@ namespace E_Ticaret.Controllers
         {
             if (ModelState.IsValid)
             {
-
+               var signInResult= _signInManager.PasswordSignInAsync(model.KullaniciAd, model.Sifre, model.BeniHatirla, false).Result;
+                if (signInResult.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                }
+                ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");
             }
             return View(new KullaniciGirisModel());
         }
