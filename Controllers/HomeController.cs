@@ -37,6 +37,10 @@ namespace E_Ticaret.Controllers
         [HttpPost]
         public IActionResult GirisYap(KullaniciGirisModel model)
         {
+            if (ModelState.IsValid)
+            {
+
+            }
             return View(new KullaniciGirisModel());
         }
     }
