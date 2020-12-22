@@ -14,7 +14,7 @@ namespace E_Ticaret.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly SignInManager<AppUser> _signInManager;
+      private readonly SignInManager<AppUser> _signInManager;
       private readonly  IUrunRepository _urunRepository;
         public HomeController(IUrunRepository urunRepository, SignInManager<AppUser> signInManager)
         {
