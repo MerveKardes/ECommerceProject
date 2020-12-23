@@ -74,5 +74,34 @@ namespace E_Ticaret.Areas.Admin.Controllers
             };
             return View(model);
         }
+        [HttpPost]
+        public IActionResult Guncelle(UrunGuncelleModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var guncellenecekUrun = _urunRepository.GetirIdile(model.Id);
+            if (model.Resim != null)
+            {
+                var uzanti = Path.GetExtension(model.Resim.FileName);
+                var yeniResimAd = Guid.NewGuid() + uzanti;
+                var yuklenecekYer = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/" + yeniResimAd);
+
+                var stream = new FileStream(yuklenecekYer, FileMode.Create);
+                model.Resim.CopyTo(stream);
+
+                    guncellenecekUrun.Resim = yeniResimAd;
+            }
+
+                guncellenecekUrun.Ad = model.Ad;
+                guncellenecekUrun.Fiyat = model.Fiyat;
+            _urunRepository.Guncelle(guncellenecekUrun);
+
+            return RedirectToAction("Index", "Home", new { area = "Admin" });
+        }
+            return View(model); 
+        }
+      
     }
 }
+    
+
