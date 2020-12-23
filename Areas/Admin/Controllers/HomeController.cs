@@ -100,6 +100,11 @@ namespace E_Ticaret.Areas.Admin.Controllers
         }
             return View(model); 
         }
+        public IActionResult Sil(int id)
+        {
+            _urunRepository.Sil(new Urun { Id = id });
+            return RedirectToAction("Index");
+        }
       
     }
 }
