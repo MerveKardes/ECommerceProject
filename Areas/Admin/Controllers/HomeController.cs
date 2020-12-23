@@ -60,5 +60,19 @@ namespace E_Ticaret.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+        public IActionResult Guncelle(int id)
+        {
+            var gelenUrun = _urunRepository.GetirIdile(id);
+
+            UrunGuncelleModel model = new UrunGuncelleModel
+            {
+                Ad = gelenUrun.Ad,
+                Fiyat = gelenUrun.Fiyat,
+               
+                Id = gelenUrun.Id
+            };
+            return View(model);
+        }
     }
 }
