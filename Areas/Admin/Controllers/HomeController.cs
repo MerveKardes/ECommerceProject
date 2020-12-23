@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using E_Ticaret.Interfaces;
+using E_Ticaret.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,11 @@ namespace E_Ticaret.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View(_urunRepository.GetirHepsi());
+        }
+
+        public IActionResult Ekle()
+        {
+            return View(new UrunEkleModel());
         }
     }
 }

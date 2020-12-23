@@ -7,7 +7,7 @@
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <div class="container">
             <a class="navbar-brand" href="#">E-Ticaret App - Admin</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Kategori İşlemleri <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Çıkış Yap <span class="sr-only">(current)</span></a>
+                    </li>
 
                 </ul>
             </div>
@@ -31,5 +34,6 @@
     </div>
     <script src="~/jquery/jquery.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    @RenderSection("JavaScript",false)
 </body>
 </html>
