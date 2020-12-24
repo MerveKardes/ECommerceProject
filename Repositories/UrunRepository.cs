@@ -45,7 +45,7 @@ namespace E_Ticaret.Repositories
             == urunKategori.KategoriId && I.UrunId == urunKategori.UrunId);
             if (kontrolKayit != null)
             {
-                _urunKategoriRepository.Sil(urunKategori);
+                _urunKategoriRepository.Sil(kontrolKayit);
             }
         }
 

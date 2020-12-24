@@ -16,9 +16,11 @@ namespace E_Ticaret.Areas.Admin.Controllers
     public class HomeController : Controller
     {
          private readonly IUrunRepository _urunRepository;
+        private readonly IKategoriRepository _kategoriRepository;
 
-        public HomeController(IUrunRepository urunRepository)
+        public HomeController(IUrunRepository urunRepository, IKategoriRepository kategoriRepository)
         {
+            _kategoriRepository = kategoriRepository;
             _urunRepository = urunRepository;
         }
 
@@ -105,6 +107,57 @@ namespace E_Ticaret.Areas.Admin.Controllers
             _urunRepository.Sil(new Urun { Id = id });
             return RedirectToAction("Index");
         }
+
+        public IActionResult AtaKategori(int id)
+        {
+            var uruneAitKategoriler=_urunRepository.GetirKategoriler(id).Select
+                (I=>I.Ad);
+            var kategoriler = _kategoriRepository.GetirHepsi();
+
+
+            TempData["UrunId"] = id;
+            List<KategoriAtaModel> list = new List<KategoriAtaModel>();
+
+            foreach (var item in kategoriler)
+            {
+                KategoriAtaModel model = new KategoriAtaModel();
+                model.KategoriId = item.Id;
+                model.KategoriAd = item.Ad;
+                model.Varmi = uruneAitKategoriler.Contains(item.Ad);
+
+                list.Add(model);
+            }
+            return View(list);
+        }
+
+        [HttpPost]
+        public IActionResult AtaKategori(List<KategoriAtaModel> list)
+        {
+            int urunId = (int)TempData["UrunId"];
+            foreach (var item in list)
+            {
+                if (item.Varmi)
+                {
+                    _urunRepository.EkleKategori(new UrunKategori
+                    {
+                        KategoriId = item.KategoriId,
+                        UrunId = urunId
+
+                    });
+                }
+                else
+                {
+                    _urunRepository.SilKategori(new UrunKategori
+                    {
+                        KategoriId=item.KategoriId,
+                        UrunId=urunId
+                    });
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+        
       
     }
 }
