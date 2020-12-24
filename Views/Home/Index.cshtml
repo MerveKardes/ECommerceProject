@@ -6,7 +6,7 @@
 
     <div class="col-md-9">
 
-        @await Component.InvokeAsync("UrunList")
+        @await Component.InvokeAsync("UrunList" ,new {kategoriId=ViewBag.KategoriId})
     </div>
 </div>
 

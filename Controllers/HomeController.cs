@@ -22,10 +22,10 @@ namespace E_Ticaret.Controllers
             _urunRepository = urunRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? kategoriId)
         {
-           
-            return View(_urunRepository.GetirHepsi());
+            ViewBag.KategoriId = kategoriId;
+            return View();
         }
 
       public IActionResult UrunDetay(int id)
