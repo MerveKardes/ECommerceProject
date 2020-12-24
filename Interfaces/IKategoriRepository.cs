@@ -8,6 +8,6 @@ namespace E_Ticaret.Interfaces
 {
    public interface IKategoriRepository: IGenericRepository<Kategori>
     {
-
+       
     }
 }

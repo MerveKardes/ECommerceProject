@@ -10,6 +10,13 @@ namespace E_Ticaret.Repositories
 {
     public class UrunRepository:GenericRepository<Urun>,IUrunRepository
     {
+        private readonly IUrunKategoriRepository _urunKategoriRepository;
+        public UrunRepository(IUrunKategoriRepository urunKategoriRepository)
+        {
+            _urunKategoriRepository = urunKategoriRepository;
+        }
+       
+
         public List<Kategori> GetirKategoriler(int urunId)
         {
             using var context = new Context();
@@ -29,6 +36,46 @@ namespace E_Ticaret.Repositories
 
 
             }).ToList();
+        }
+
+
+        public void SilKategori(UrunKategori urunKategori)
+        {
+            var kontrolKayit=_urunKategoriRepository.GetirFiltreile(I => I.KategoriId
+            == urunKategori.KategoriId && I.UrunId == urunKategori.UrunId);
+            if (kontrolKayit != null)
+            {
+                _urunKategoriRepository.Sil(urunKategori);
+            }
+        }
+
+        public void EkleKategori(UrunKategori urunKategori)
+        {
+            var kontrolKayit = _urunKategoriRepository.GetirFiltreile(I => I.KategoriId
+             == urunKategori.KategoriId && I.UrunId == urunKategori.UrunId);
+            if (kontrolKayit == null)
+            {
+                _urunKategoriRepository.Ekle(urunKategori);
+            }
+
+        }
+
+        public List<Urun> GetirKategoriIdile(int kategoriId)
+        {
+            using var context = new Context();
+            return context.Urunler.Join(context.UrunKategoriler, u => u.Id,
+                 uc => uc.UrunId, (urun, urunKategori) => new
+                 {
+                     Urun = urun,
+                     UrunKategori = urunKategori
+                 }).Where(I => I.UrunKategori.KategoriId == kategoriId).Select(I => new Urun
+                 {
+                     Id = I.Urun.Id,
+                     Ad = I.Urun.Ad,
+                     Fiyat = I.Urun.Fiyat,
+                     Resim = I.Urun.Resim
+
+                 }).ToList();
         }
     }
 }
