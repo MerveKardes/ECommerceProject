@@ -67,5 +67,11 @@ namespace E_Ticaret.Areas.Admin.Controllers
           
             return View(model);
         }
+
+        public IActionResult Sil(int id)
+        {
+            _kategoriRepository.Sil(new Kategori { Id = id });
+            return RedirectToAction("Index");
+        }
     }
 }
