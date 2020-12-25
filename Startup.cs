@@ -30,7 +30,7 @@ namespace E_Ticaret
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Context>();
-
+            services.AddHttpContextAccessor();
             services.AddAuthentication();
 
 
@@ -55,10 +55,11 @@ namespace E_Ticaret
             });
 
 
-
+            services.AddScoped<ISepetRepository, SepetRepository>();
             services.AddScoped<IKategoriRepository, KategoriRepository>();
             services.AddScoped<IUrunRepository, UrunRepository>();
             services.AddScoped<IUrunKategoriRepository, UrunKategoriRepository>();
+            services.AddSession();
             services.AddControllersWithViews();
         }
 
@@ -79,7 +80,7 @@ namespace E_Ticaret
 
             IdentityInitializer.OlusturAdmin(userManager, roleManager);
 
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

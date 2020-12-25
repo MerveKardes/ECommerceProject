@@ -16,8 +16,10 @@ namespace E_Ticaret.Controllers
     {
       private readonly SignInManager<AppUser> _signInManager;
       private readonly  IUrunRepository _urunRepository;
-        public HomeController(IUrunRepository urunRepository, SignInManager<AppUser> signInManager)
+        private readonly ISepetRepository _sepetRepository;
+        public HomeController(IUrunRepository urunRepository, SignInManager<AppUser> signInManager, ISepetRepository sepetRepository)
         {
+            _sepetRepository = sepetRepository;
             _signInManager = signInManager;
             _urunRepository = urunRepository;
         }
@@ -51,6 +53,14 @@ namespace E_Ticaret.Controllers
                 ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");
             }
             return View(new KullaniciGirisModel());
+        }
+
+        public IActionResult EkleSepet(int id)
+        {
+            var urun=_urunRepository.GetirIdile(id);
+            _sepetRepository.SepeteEkle(urun);
+            TempData["bildirim"] = "Ürün sepete eklendi";
+            return RedirectToAction("Index");
         }
     }
 }
