@@ -1,0 +1,39 @@
+﻿@model List<Urun>
+
+@{ 
+
+    var toplamFiyat = Model.Sum(I => I.Fiyat);
+}
+<div>
+    <div class="card">
+        <h5 class="card-header">Tutar Bilgileri</h5>
+        <div class="card-body">
+         
+            <p class="card-text">
+                Sepetinizdeki toplam tutar:@toplamFiyat - TL
+            </p>
+            <a asp-action="Index" asp-controller="Home">Alışverişe Devam Et</a>
+            <a asp-action="SepetiBosalt" asp-controller="Home" asp-route-fiyat="@toplamFiyat" class="btn btn-primary">Satın Al</a>
+        </div>
+    </div>
+
+    @foreach (var item in Model)
+    {
+    <div class="card my-1 w-100">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="/img/@item.Resim" class="card-img" alt="@item.Ad">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Ad</h5>
+                    <p class="card-text">@item.Fiyat TL</p>
+                    <a asp-action="SepettenCikar" asp-controller="Home">Sepetten Çıkar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>
+    

@@ -25,6 +25,7 @@ namespace E_Ticaret.Repositories
             {
                 gelenListe.Add(urun);
             }
+            _httpContextAccessor.HttpContext.Session.SetObject("sepet", gelenListe);
 
         }
         public void SepettenCikar(Urun urun)
@@ -34,6 +35,17 @@ namespace E_Ticaret.Repositories
             gelenListe.Remove(urun);
 
             _httpContextAccessor.HttpContext.Session.SetObject("sepet", gelenListe);
+        }
+
+        public List<Urun> GetirSepettekiUrunler()
+        {
+            return _httpContextAccessor.HttpContext.Session.GetObject<List<Urun>>("sepet");
+           
+        }
+
+        public void SepetiBosalt()
+        {
+            _httpContextAccessor.HttpContext.Session.Remove("sepet");
         }
     }
 }

@@ -10,5 +10,7 @@ namespace E_Ticaret.Interfaces
     {
         void SepeteEkle(Urun urun);
         void SepettenCikar(Urun urun);
+        List<Urun> GetirSepettekiUrunler();
+        void SepetiBosalt();
     }
 }

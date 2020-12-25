@@ -55,6 +55,31 @@ namespace E_Ticaret.Controllers
             return View(new KullaniciGirisModel());
         }
 
+        public IActionResult Sepet()
+        {
+          
+                return View(_sepetRepository.GetirSepettekiUrunler());
+        }
+
+        public IActionResult SepettenCikar(int id)
+        {
+            var cikarilacakUrun=_urunRepository.GetirIdile(id);
+            _sepetRepository.SepettenCikar(cikarilacakUrun);
+            return RedirectToAction("Sepet");
+        }
+
+        public IActionResult SepetiBosalt(decimal fiyat)
+        {
+
+            _sepetRepository.SepetiBosalt();
+            return RedirectToAction("Tesekkur",new {fiyat=fiyat });
+        }
+
+        public IActionResult Tesekkur(decimal fiyat)
+        {
+            ViewBag.Fiyat = fiyat;
+            return View();
+        }
         public IActionResult EkleSepet(int id)
         {
             var urun=_urunRepository.GetirIdile(id);
