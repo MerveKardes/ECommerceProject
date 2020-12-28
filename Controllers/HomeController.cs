@@ -9,6 +9,7 @@ using E_Ticaret.Models;
 using E_Ticaret.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using E_Ticaret.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace E_Ticaret.Controllers
 {
@@ -80,6 +81,7 @@ namespace E_Ticaret.Controllers
             ViewBag.Fiyat = fiyat;
             return View();
         }
+        [Authorize]
         public IActionResult EkleSepet(int id)
         {
             var urun=_urunRepository.GetirIdile(id);

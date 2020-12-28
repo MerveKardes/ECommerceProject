@@ -29,20 +29,14 @@ namespace E_Ticaret
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Context>();
+
+
+            services.AddRazorPages();
             services.AddHttpContextAccessor();
             services.AddAuthentication();
 
 
-            services.AddIdentity<AppUser, IdentityRole>(opt=>
-            {
-                opt.Password.RequireDigit = false;
-                opt.Password.RequireLowercase = false;
-                opt.Password.RequiredLength = 3;
-                opt.Password.RequireUppercase = false;
-                opt.Password.RequireNonAlphanumeric = false;
-                
-            }).AddEntityFrameworkStores<Context>();
+          
 
             services.ConfigureApplicationCookie(opt =>
             {
@@ -54,6 +48,8 @@ namespace E_Ticaret
 
             });
 
+     
+
 
             services.AddScoped<ISepetRepository, SepetRepository>();
             services.AddScoped<IKategoriRepository, KategoriRepository>();
@@ -63,9 +59,52 @@ namespace E_Ticaret
             services.AddControllersWithViews();
         }
 
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+            var dbContext = serviceProvider.GetRequiredService<Context>();
+
+            IdentityResult roleResult1;
+            IdentityResult roleResult2;
+            //Adding Admin Role
+            var roleCheck1 = await RoleManager.RoleExistsAsync("Admin");
+            var roleCheck2 = await RoleManager.RoleExistsAsync("User");
+            if (!roleCheck1)
+            {
+                //create the roles and seed them to the database
+                roleResult1 = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+            if (!roleCheck2)
+            {
+                //create the roles and seed them to the database
+                roleResult2 = await RoleManager.CreateAsync(new IdentityRole("User"));
+            }
+            //Assign Admin role to the main User here we have given our newly registered 
+            //login id for Admin management
+
+            /*    AuthUser user = await UserManager.FindByEmailAsync("ekrem@outlook");
+                if (user != null)
+                {
+                    await UserManager.AddToRoleAsync(user, "Admin");
+                }
+            */
+
+            if (!dbContext.Users.Any(u => u.UserName == "g171210052@sakarya.edu.tr"))
+            {
+                var adminUser = new AppUser
+                {
+                    UserName = "g171210052@sakarya.edu.tr",
+                    Email = "mmervekardess@gmail.com",
+                };
+                var result = await UserManager.CreateAsync(adminUser, "123");
+                await UserManager.AddToRoleAsync(adminUser, new IdentityRole("Admin").Name);
+            }
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment 
-            env,UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+            env,UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager,IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -78,7 +117,7 @@ namespace E_Ticaret
                 app.UseHsts();
             }
 
-            IdentityInitializer.OlusturAdmin(userManager, roleManager);
+          
 
             app.UseSession();
             app.UseHttpsRedirection();
@@ -101,8 +140,13 @@ namespace E_Ticaret
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-               
+                endpoints.MapRazorPages();
+              
+
             });
+            CreateUserRoles(serviceProvider).Wait();
         }
+
     }
+
 }
