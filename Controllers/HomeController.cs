@@ -57,7 +57,7 @@ namespace E_Ticaret.Controllers
             }
             return View(new KullaniciGirisModel());
         }
-
+       // [Authorize]
         public IActionResult Sepet()
         {
           

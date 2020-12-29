@@ -6,6 +6,7 @@ using E_Ticaret.Contexts;
 using E_Ticaret.Entities;
 using E_Ticaret.Interfaces;
 using E_Ticaret.Repositories;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,20 +36,22 @@ namespace E_Ticaret
             services.AddHttpContextAccessor();
             services.AddAuthentication();
 
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(x => x.LoginPath = "/Identity/Account/Login");
 
-          
 
-            services.ConfigureApplicationCookie(opt =>
-            {
-                opt.LoginPath = new PathString("/Home/GirisYap");
-                opt.Cookie.Name = "E-Ticaret";
-                opt.Cookie.HttpOnly = true;
-                opt.Cookie.SameSite = SameSiteMode.Strict;
-                opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
 
-            });
+            //services.ConfigureApplicationCookie(opt =>
+            //{
+            //    opt.LoginPath = new PathString("/Home/GirisYap");
+            //    opt.Cookie.Name = "E-Ticaret";
+            //    opt.Cookie.HttpOnly = true;
+            //    opt.Cookie.SameSite = SameSiteMode.Strict;
+            //    opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
 
-     
+            //});
+
+
 
 
             services.AddScoped<ISepetRepository, SepetRepository>();
@@ -80,15 +83,7 @@ namespace E_Ticaret
                 //create the roles and seed them to the database
                 roleResult2 = await RoleManager.CreateAsync(new IdentityRole("User"));
             }
-            //Assign Admin role to the main User here we have given our newly registered 
-            //login id for Admin management
-
-            /*    AuthUser user = await UserManager.FindByEmailAsync("ekrem@outlook");
-                if (user != null)
-                {
-                    await UserManager.AddToRoleAsync(user, "Admin");
-                }
-            */
+           
 
             if (!dbContext.Users.Any(u => u.UserName == "g171210052@sakarya.edu.tr"))
             {

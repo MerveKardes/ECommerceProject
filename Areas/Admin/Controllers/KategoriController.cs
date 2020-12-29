@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using E_Ticaret.Entities;
 using E_Ticaret.Interfaces;
 using E_Ticaret.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Ticaret.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class KategoriController : Controller
     {
         private readonly IKategoriRepository _kategoriRepository;
