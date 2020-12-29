@@ -8,7 +8,6 @@
     @if (SignInManager.IsSignedIn(User))
     {
 
-        
            
                 <li class="nav-item active">
                     <a class="nav-link" asp-action="Index" asp-controller="Home" asp-area="Admin">Ürün İşlemleri <span class="sr-only">(current)</span></a>
@@ -16,12 +15,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" asp-action="Index" asp-controller="Kategori" asp-area="Admin">Kategori İşlemleri <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Çıkış Yap <span class="sr-only">(current)</span></a>
-                </li>
-
-          
-       
+               
 
         <li class="nav-item">
             <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
