@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace E_Ticaret.Controllers
 {
+   
     public class HomeController : Controller
     {
       private readonly SignInManager<AppUser> _signInManager;
@@ -25,6 +26,7 @@ namespace E_Ticaret.Controllers
             _urunRepository = urunRepository;
         }
 
+       
         public IActionResult Index(int? kategoriId)
         {
             ViewBag.KategoriId = kategoriId;
