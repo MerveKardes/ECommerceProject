@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Ticaret.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
          private readonly IUrunRepository _urunRepository;

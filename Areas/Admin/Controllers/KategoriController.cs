@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Ticaret.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class KategoriController : Controller
     {
         private readonly IKategoriRepository _kategoriRepository;
