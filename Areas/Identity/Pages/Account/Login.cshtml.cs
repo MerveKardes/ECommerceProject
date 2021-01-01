@@ -60,7 +60,7 @@ namespace E_Ticaret.Areas.Identity.Pages.Account
         {
             if (User.Identity.IsAuthenticated)
             {
-                Response.Redirect("/Home/Privacy");
+                Response.Redirect("/Home/Index");
             }
             if (!string.IsNullOrEmpty(ErrorMessage))
             {

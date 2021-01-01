@@ -16,7 +16,7 @@
         <div class="card-body">
 
             <p class="card-text">
-                Sepetinizdeki toplam tutar:@toplamFiyat - TL
+                Sepetinizdeki toplam tutar: @toplamFiyat TL
             </p>
             <a asp-action="Index" asp-controller="Home" class="btn btn-warning">Alışverişe Devam Et</a>
             
@@ -47,11 +47,11 @@
 else
 {
 <div class="text-center">
-    <div class="alert alert-secondary" role="alert">
+    <div class="alert alert-danger" role="alert">
         Sepetinizde bir ürün bulunamadı.
     </div>
     <br />
-    <a asp-action="Index" asp-controller="Home" class="btn btn-warning">Alışverişe Devam Et</a>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-success">Alışverişe Devam Et</a>
 </div>
 }
 

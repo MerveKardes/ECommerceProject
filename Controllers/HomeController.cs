@@ -38,25 +38,6 @@ namespace E_Ticaret.Controllers
             return View(_urunRepository.GetirIdile(id));
         }
 
-        //   public IActionResult GirisYap()
-        //    {
-        //    return View(new KullaniciGirisModel());
-        //    }
-
-        //[HttpPost]
-        //public IActionResult GirisYap(KullaniciGirisModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //       var signInResult= _signInManager.PasswordSignInAsync(model.KullaniciAd, model.Sifre, model.BeniHatirla, false).Result;
-        //        if (signInResult.Succeeded)
-        //        {
-        //            return RedirectToAction("Index", "Home", new { area = "Admin" });
-        //        }
-        //        ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");
-        //    }
-        //    return View(new KullaniciGirisModel());
-        //}
        [Authorize]
         public IActionResult Sepet()
         {
