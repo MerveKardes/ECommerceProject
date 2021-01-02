@@ -6,7 +6,6 @@ using E_Ticaret.Contexts;
 using E_Ticaret.Entities;
 using E_Ticaret.Interfaces;
 using E_Ticaret.Repositories;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +14,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+
 
 namespace E_Ticaret
 {
@@ -27,7 +28,7 @@ namespace E_Ticaret
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+       
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -35,24 +36,6 @@ namespace E_Ticaret
             services.AddRazorPages();
             services.AddHttpContextAccessor();
             services.AddAuthentication();
-
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //    .AddCookie(x => x.LoginPath = "/Identity/Account/Login");
-
-
-
-            //services.ConfigureApplicationCookie(opt =>
-            //{
-            //    opt.LoginPath = new PathString("/Home/GirisYap");
-            //    opt.Cookie.Name = "E-Ticaret";
-            //    opt.Cookie.HttpOnly = true;
-            //    opt.Cookie.SameSite = SameSiteMode.Strict;
-            //    opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-
-            //});
-
-
-
 
             services.AddScoped<ISepetRepository, SepetRepository>();
             services.AddScoped<IKategoriRepository, KategoriRepository>();
@@ -119,6 +102,7 @@ namespace E_Ticaret
             app.UseStaticFiles();
 
             app.UseRouting();
+
 
             app.UseAuthentication();//ilgili kullanýcý giriþ yapmýþ mý yapmamýl mý
             app.UseAuthorization();//giriþ yapan kullanýcýnýn yetkisi ilgili þartlarý karþýlýyor mu(admin mi girmiþ member mi girmiþ) 
